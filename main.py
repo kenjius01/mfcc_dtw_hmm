@@ -103,11 +103,13 @@ files = [file for file in os.listdir('data_output')]
 dataset = list()
 for d in data:
     dataset_features = get_MFCC(d["signal"], d["fs"])
-    dataset.append([dataset_features, d['label']])
+    dataset.append([dataset_features, d['label']])  #Voi moi dac trung cua tu, them vao list label cua no
 
+#Test
 print('shape: ', dataset[3][0].shape)
 print('label: ', dataset[3][1])
 
+#Show ra frame, frequency cua mot tu bat ki
 print("Example of MFFC result image")
 mffc_example = dataset[3][0]
 plt.xlabel("frames")
