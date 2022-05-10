@@ -2,6 +2,7 @@ import librosa
 import matplotlib.pyplot as plt
 import re
 import os
+
 import numpy as np
 import math
 from scipy.io import wavfile
@@ -61,7 +62,8 @@ def audio_segment(signal_file_name, label_track_file):
         try:
             newAudio = AudioSegment.from_wav(signal_file_name);
             newAudio = newAudio[label_track["timestamp_start"]:label_track["timestamp_end"]]
-            signal = "data_output/" + label_track["label"] + "/" + file_number + '_' + label_track["label"] + "_" + str(i) + ".wav"
+            signal = "data_output/" + label_track["label"] + "/" + file_number + '_' + label_track["label"] + "_" + str(
+                i) + ".wav"
             newAudio.export(signal, format="wav")
             dataset.append({"signal_path": signal, "label": label_track["label"]})
             i += 1
