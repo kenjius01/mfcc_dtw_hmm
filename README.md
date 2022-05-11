@@ -15,6 +15,6 @@
 
 ### Kết quả:
 
-![This is an image](https://github.com/kenjius01/mfcc_dtw_hmm/blob/main/image/kq_b3.png)
+![This is an image](https://github.com/kenjius01/mfcc_dtw_hmm/blob/main/image/kq_bai3.png)
 
 ### Nhận xét: Đạt chính xác cao với cả bộ dữ liệu cá nhân và  giọng của nhiều người khác nhau 
