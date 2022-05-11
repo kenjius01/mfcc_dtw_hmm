@@ -70,28 +70,6 @@ def cross_validation():
             predict.append(predict_label)
 
 
-cross_validation()
-print("Classification report: \n\n%s\n"
-      % (metrics.classification_report(real_label, predict)))
-
-mat = metrics.confusion_matrix(real_label, predict)
-label_names = list(set(real_label))
-plt.figure()
-plt.imshow(mat, interpolation='nearest', cmap='Blues')
-plt.title('normalized confusion matrix')
-plt.colorbar()
-plt.ylabel('True label')
-plt.xlabel('Predicted label')
-tick_marks = np.arange(len(label_names))
-plt.xticks(tick_marks, label_names, rotation=90)
-plt.yticks(tick_marks, label_names)
-plt.tight_layout()
-plt.show()
-
-accuracy = metrics.accuracy_score(real_label, predict)
-print('Accuracy classification score: {0:.2f}%'.format(100 * accuracy))
-precision = metrics.precision_score(real_label, predict, average='weighted')
-print('Precision classification score: {0:.2f}%'.format(100 * precision))
 dis, result = predict_result('test_data/1.wav')
 
 print('distance: ', dis)
