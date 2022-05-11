@@ -11,9 +11,11 @@ import numpy as np
 import pandas as pd
 import scipy.io.wavfile as wav
 import math
-
-
+import matplotlib.pyplot as plt
 # Get feature
+from sklearn import metrics
+
+
 def get_mfcc(file_path):
     y, sr = librosa.load(file_path)  # read .wav file
     hop_length = math.floor(sr * 0.010)  # 10ms hop
@@ -40,7 +42,6 @@ train_path = 'data_output'
 files = [file for file in os.listdir(train_path)]
 
 
-
 def predict_result(file_test):
     mfcc = get_mfcc(file_test)
     distance = np.inf
@@ -57,8 +58,41 @@ def predict_result(file_test):
     return distance, predicted_label
 
 
-dis, result = predict_result('data_output/B/86_B_4.wav')
+predict = []
+real_label = []
 
 
-print('distance: ', dis)
-print('The word predict is: ', result)
+def cross_validation():
+    for file_name in files:
+        for audio_name in os.listdir(train_path + '/' + file_name)[4:]:
+            _, predict_label = predict_result(train_path + '/' + file_name + '/' + audio_name)
+            real_label.append(file_name)
+            predict.append(predict_label)
+
+
+cross_validation()
+print("Classification report: \n\n%s\n"
+      % (metrics.classification_report(real_label, predict)))
+
+mat = metrics.confusion_matrix(real_label, predict)
+label_names = list(set(real_label))
+plt.figure()
+plt.imshow(mat, interpolation='nearest', cmap='Blues')
+plt.title('normalized confusion matrix')
+plt.colorbar()
+plt.ylabel('True label')
+plt.xlabel('Predicted label')
+tick_marks = np.arange(len(label_names))
+plt.xticks(tick_marks, label_names, rotation=90)
+plt.yticks(tick_marks, label_names)
+plt.tight_layout()
+plt.show()
+
+accuracy = metrics.accuracy_score(real_label, predict)
+print('Accuracy classification score: {0:.2f}%'.format(100 * accuracy))
+precision = metrics.precision_score(real_label, predict, average='weighted')
+print('Precision classification score: {0:.2f}%'.format(100 * precision))
+# dis, result = predict_result('data_output/B/86_B_4.wav')
+#
+# print('distance: ', dis)
+# print('The word predict is: ', result)
