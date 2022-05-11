@@ -64,7 +64,7 @@ real_label = []
 
 def cross_validation():
     for file_name in files:
-        for audio_name in os.listdir(train_path + '/' + file_name)[4:]:
+        for audio_name in os.listdir(train_path + '/' + file_name)[4:20]:
             _, predict_label = predict_result(train_path + '/' + file_name + '/' + audio_name)
             real_label.append(file_name)
             predict.append(predict_label)
@@ -92,7 +92,7 @@ accuracy = metrics.accuracy_score(real_label, predict)
 print('Accuracy classification score: {0:.2f}%'.format(100 * accuracy))
 precision = metrics.precision_score(real_label, predict, average='weighted')
 print('Precision classification score: {0:.2f}%'.format(100 * precision))
-# dis, result = predict_result('data_output/B/86_B_4.wav')
-#
-# print('distance: ', dis)
-# print('The word predict is: ', result)
+dis, result = predict_result('test_data/1.wav')
+
+print('distance: ', dis)
+print('The word predict is: ', result)
